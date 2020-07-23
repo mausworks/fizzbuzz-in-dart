@@ -38,6 +38,8 @@ int main(List<String> args) {
     turn++;
   }
 
+  printWinInfo();
+
   return 0;
 }
 
@@ -75,7 +77,7 @@ printLossInfo(int turn, int turnCount) {
 }
 
 printWinInfo() {
-  print("\nThat's Numberwang!.\n");
+  print("\nThat's Numberwang!\n");
 }
 
 String findPlayerResponse(int turn) => parseResponse(stdin.readLineSync());
