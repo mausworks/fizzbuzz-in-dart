@@ -21,8 +21,7 @@ const algorithms = const {
 };
 
 void main() {
-  print(
-      "Testing ${algorithms.length} algorithms with $SAMPLE_COUNT random samples for each test.");
+  print("Testing ${algorithms.length} algorithms using $SAMPLE_COUNT samples.");
 
   final stopwatch = Stopwatch()..start();
 
@@ -40,31 +39,30 @@ void main() {
   });
 }
 
-Iterable<int> yieldRandom() sync* {
-  final random = Random();
-
-  while (true) {
-    yield random.nextInt(100000000);
-  }
-}
-
-Iterable<int> fizzers() => yieldRandom().where((i) => i % 3 == 0 && i % 5 != 0);
-
-Iterable<int> buzzers() => yieldRandom().where((i) => i % 5 == 0 && i % 3 != 0);
-
-Iterable<int> fizzBuzzers() =>
-    yieldRandom().where((i) => i % 5 == 0 && i % 3 == 0);
-
-Iterable<int> otherNumbers() =>
-    yieldRandom().where((i) => i % 5 != 0 && i % 3 != 0);
-
-void test(Function(int) alg, Iterable<int> range, Function(int) exp) {
-  for (var n in range.take(SAMPLE_COUNT)) {
-    final String result = alg(n);
-    final expected = exp(n);
+void test(Function(int) algo, Iterable<int> data, Function(int) expect) {
+  for (var n in data.take(SAMPLE_COUNT)) {
+    final String result = algo(n);
+    final expected = expect(n);
 
     if (result != expected) {
       throw Exception("Expected '$expected' for '$n'. Received: '$result'");
     }
   }
+}
+
+Iterable<int> fizzers() =>
+    randomNumbers().where((i) => i % 3 == 0 && i % 5 != 0);
+
+Iterable<int> buzzers() =>
+    randomNumbers().where((i) => i % 5 == 0 && i % 3 != 0);
+
+Iterable<int> fizzBuzzers() =>
+    randomNumbers().where((i) => i % 5 == 0 && i % 3 == 0);
+
+Iterable<int> otherNumbers() =>
+    randomNumbers().where((i) => i % 5 != 0 && i % 3 != 0);
+
+Iterable<int> randomNumbers() sync* {
+  final random = Random();
+  while (true) yield random.nextInt(100000000);
 }
