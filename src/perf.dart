@@ -25,11 +25,11 @@ void reportDelayed(String name, Duration duration) async {
       "${name.padLeft(30)} : ${duration.inMilliseconds} ms or ${duration.inMicroseconds} µs");
 }
 
-Duration measure(Function fun, int turnCount) {
+Duration measure(Function subject, int turnCount) {
   final stopwatch = Stopwatch()..start();
 
   for (var turn = 1; turn <= turnCount; turn++) {
-    fun(turn);
+    subject(turn);
   }
 
   stopwatch.stop();
