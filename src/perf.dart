@@ -3,10 +3,10 @@ import "fizzbuzz.dart";
 const DEFAULT_TURN_COUNT = 1000000;
 
 const subjects = const {
-  "branching": checkWithBranching,
-  "concat": checkWithConcat,
-  "nullCoalescing": checkNullCoalescing,
-  "nullCoalescingInline": checkNullCoalescingInline
+  "branching": solveWithBranching,
+  "concat": solveWithConcat,
+  "nullCoalescing": solveNullCoalescing,
+  "nullCoalescingInline": solveNullCoalescingInline
 };
 
 void main(List<String> args) {

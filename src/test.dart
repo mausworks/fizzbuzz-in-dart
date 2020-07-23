@@ -13,11 +13,11 @@ Properties of the fizz buzz problem:
 
 const SAMPLE_COUNT = 250000;
 
-const algorithms = const {
-  "branching": checkWithBranching,
-  "concat": checkWithConcat,
-  "nullCoalescing": checkNullCoalescing,
-  "nullCoalescingInline": checkNullCoalescingInline
+Map<String, FizzBuzzSolver> algorithms = const {
+  "branching": solveWithBranching,
+  "concat": solveWithConcat,
+  "nullCoalescing": solveNullCoalescing,
+  "nullCoalescingInline": solveNullCoalescingInline
 };
 
 void main() {
@@ -39,7 +39,7 @@ void main() {
   });
 }
 
-void test(Function(int) algo, Iterable<int> data, Function(int) expect) {
+void test(FizzBuzzSolver algo, Iterable<int> data, FizzBuzzSolver expect) {
   for (var n in data.take(SAMPLE_COUNT)) {
     final String result = algo(n);
     final expected = expect(n);

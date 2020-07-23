@@ -1,15 +1,18 @@
-/** Gets the FizzBuzz result for the given turn. */
-String getFizzBuzz(int turn) => checkNullCoalescingInline(turn);
+/** Defines a function which solves for the result of a turn of FizzBuzz. */
+typedef String FizzBuzzSolver(int turn);
 
-/** Iterates results of fizz buzz turns (forever), starting from 1. */
-Iterable<String> listFizzBuzzResults() sync* {
-  for (var turn = 1;; turn++) {
-    yield getFizzBuzz(turn);
+/** Gets the FizzBuzz result for the given turn. */
+FizzBuzzSolver getFizzBuzzResult = solveNullCoalescingInline;
+
+/** Iterates results of fizz buzz turns (forever). */
+Iterable<String> listFizzBuzzResults([int start = 1]) sync* {
+  for (var turn = start;; turn++) {
+    yield getFizzBuzzResult(turn);
   }
 }
 
 /** The FizzBuzz algorithm which describes "the FizzBuzz problem" the best */
-String checkWithBranching(int turn) {
+String solveWithBranching(int turn) {
   if (turn % 3 == 0 && turn % 5 == 0) {
     return "FizzBuzz";
   } else if (turn % 3 == 0) {
@@ -25,7 +28,7 @@ String checkWithBranching(int turn) {
  * Arguably one of the worst "good solutions" to the problem: 
  * Create an empty string, and append to it. 
  */
-String checkWithConcat(int turn) {
+String solveWithConcat(int turn) {
   var result = "";
 
   if (turn % 3 == 0) {
@@ -43,7 +46,7 @@ String checkWithConcat(int turn) {
  * A FizzBuzz solution which leverages the 
  * null-coalescing operator (??) in order to reduce branching.
  */
-String checkNullCoalescing(int turn) {
+String solveNullCoalescing(int turn) {
   final fizzed = turn % 3 == 0 ? "Fizz" : null;
   final buzzed = turn % 5 == 0 ? "Buzz" : null;
   final both = (fizzed != null && buzzed != null) ? "FizzBuzz" : null;
@@ -56,7 +59,7 @@ String checkNullCoalescing(int turn) {
  * null-coalescing operator (??) in order to reduce branching.
  * This solution does all checking in-line.
  */
-String checkNullCoalescingInline(int turn) =>
+String solveNullCoalescingInline(int turn) =>
     (turn % 15 == 0 ? "FizzBuzz" : null) ??
     (turn % 3 == 0 ? "Fizz" : null) ??
     (turn % 5 == 0 ? "Buzz" : null) ??

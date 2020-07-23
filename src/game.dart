@@ -23,7 +23,7 @@ int main(List<String> args) {
         continue;
       }
 
-      final expected = getFizzBuzz(turn);
+      final expected = getFizzBuzzResult(turn);
 
       if (response != expected) {
         printWrongResponse(expected, response);
@@ -32,7 +32,7 @@ int main(List<String> args) {
         return 1;
       }
     } else {
-      writeFizzBuzz(turn);
+      printFizzBuzzResult(turn);
     }
 
     turn++;
@@ -54,9 +54,7 @@ printInstructions(int turnCount) {
   print(" - If you get all answers right, the program exits with 0");
   print("");
   print("We're playing $turnCount turns in total.");
-  print(isPlayerTurn(1)
-      ? "You're starting ..."
-      : "Looks like I'm starting this time:");
+  print(playerStarts ? "You're starting ..." : "I'm starting this time:");
   print("");
 }
 
@@ -82,12 +80,12 @@ printWinInfo() {
 
 String findPlayerResponse(int turn) => parseResponse(stdin.readLineSync());
 
-void writeTurnNumber(int turn, int max) {
-  stdout.write(turn.toString().padLeft(max.toString().length));
+void writeTurnNumber(int turn, int turnCount) {
+  stdout.write(turn.toString().padLeft(turnCount.toString().length));
   stdout.write(" : ");
 }
 
-void writeFizzBuzz(int turn) => print(getFizzBuzz(turn));
+void printFizzBuzzResult(int turn) => print(getFizzBuzzResult(turn));
 
 String parseResponse(String input) {
   final value = input.toLowerCase().trim();
