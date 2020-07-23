@@ -8,7 +8,7 @@ const DEFAULT_TURN_COUNT = 25;
 /** If true, the player starts (and then plays on odd rounds). */
 final bool playerStarts = Random().nextBool();
 
-void main(List<String> args) {
+int main(List<String> args) {
   final turnCount = args.isEmpty ? DEFAULT_TURN_COUNT : int.parse(args.single);
 
   printInstructions(turnCount);
@@ -17,7 +17,7 @@ void main(List<String> args) {
     writeTurnNumber(turn, turnCount);
 
     if (isPlayerTurn(turn)) {
-      final response = getPlayerResponse(turn);
+      final response = findPlayerResponse(turn);
 
       if (response == null) {
         continue;
@@ -27,9 +27,9 @@ void main(List<String> args) {
 
       if (response != expected) {
         printWrongResponse(expected, response);
-        printLossScreen(turn, turnCount);
+        printLossInfo(turn, turnCount);
 
-        break;
+        return 1;
       }
     } else {
       writeFizzBuzz(turn);
@@ -37,6 +37,8 @@ void main(List<String> args) {
 
     turn++;
   }
+
+  return 0;
 }
 
 bool isPlayerTurn(int turn) => playerStarts == turn.isOdd;
@@ -46,17 +48,13 @@ printInstructions(int turnCount) {
   print("");
   print(" - Answer with a number, fizz (or f), buzz (b), or fizzbuzz (fb)");
   print(" - If your answer is garbage, you can try again");
-  print(" - If your answer is wrong, you lose, and the game ends");
-  print(" - If you get all answers right, the game ends");
+  print(" - If your answer is wrong, you lose, and the program exits with 1");
+  print(" - If you get all answers right, the program exits with 0");
   print("");
   print("We're playing $turnCount turns in total.");
-
-  if (!isPlayerTurn(1)) {
-    print("Looks like I'm starting this time:");
-  } else {
-    print("You're starting ...");
-  }
-
+  print(isPlayerTurn(1)
+      ? "You're starting ..."
+      : "Looks like I'm starting this time:");
   print("");
 }
 
@@ -67,17 +65,20 @@ printWrongResponse(String expected, String response) {
   print("But you said '$response' instead.");
 }
 
-printLossScreen(int turn, int turnCount) {
+printLossInfo(int turn, int turnCount) {
   print("");
-  print("So OK! You lost.");
+  print("So, OK! You lost.");
   print("But you got to turn $turn/$turnCount.");
-  print("You can try again by restarting the game.");
   print("");
   print("Bye!");
   print("");
 }
 
-String getPlayerResponse(int turn) => parseResponse(stdin.readLineSync());
+printWinInfo() {
+  print("\nThat's Numberwang!.\n");
+}
+
+String findPlayerResponse(int turn) => parseResponse(stdin.readLineSync());
 
 void writeTurnNumber(int turn, int max) {
   stdout.write(turn.toString().padLeft(max.toString().length));
