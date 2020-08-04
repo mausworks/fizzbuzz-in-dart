@@ -8,7 +8,7 @@ Properties of the fizz buzz problem:
 - "FizzBuzzers": Numbers divisble by both 3 and 5 must return "FizzBuzz"
 - "Fizzers": Numbers divisible by 3 (and not 5) must return "Fizz"
 - "Buzzers": Numbers divisible by 5 (and not 3) must return "Buzz"
-- "Other numbers": All other numbers numbers are stringified
+- "Other numbers": All other numbers are stringified
 */
 
 const SAMPLE_COUNT = 250000;
